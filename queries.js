@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const Pool = require('pg').Pool;
 const pool = new Pool({
-	user     : 'kyle',
+	user     : process.env.POSTGRESUSER,
 	host     : 'localhost',
-	database : 'api',
-	password : 'postpass',
+	database : process.env.POSTGRESDB,
+	password : process.env.POSTGRESPASS,
 	port     : 5432
 });
 
@@ -34,7 +36,8 @@ const createUser = (request, response) => {
 		if (error) {
 			throw error;
 		}
-		response.status(201).send(`User added with ID: ${result.insertId}`);
+		console.log(results);
+		response.status(201).send('User added!');
 	});
 };
 
